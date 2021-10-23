@@ -179,6 +179,14 @@ public class Paciente {
 		return evolucaoCaso;
 	}
 	
+	public Date getDataNotificacao() {
+		return dataNotificacao;
+	}
+	
+	public String getResultadoTeste() {
+		return resultadoTeste;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -64,13 +64,16 @@ public class CriarCSVRedomeModificado {
 			
 			String dataEncerramento = paciente.getDataEncerramento() != null ? sdf.format(paciente.getDataEncerramento()) : null;
 			String dataInternacao = paciente.getDataInternacao() != null ? sdf.format(paciente.getDataInternacao()) : null;
-
+			String dataNotificacao = paciente.getDataNotificacao() != null ? sdf.format(paciente.getDataNotificacao()) : null;
+			
+			Integer idade = calcularIdade(paciente.getDataNotificacao(), paciente.getDataNascimento());
 			 
-			SivepRedomeModificadoCSV registroModificado = new SivepRedomeModificadoCSV(registro.getIdentificacao(), registro.getNomeCompleto(), registro.getDataNascimento(), calcularIdade(registro).toString(), 
+			SivepRedomeModificadoCSV registroModificado = new SivepRedomeModificadoCSV(registro.getIdentificacao(), registro.getNomeCompleto(), registro.getDataNascimento(), idade.toString(), 
 																					   registro.getMunicipio(), registro.getCampo1(), registro.getSexo(), registro.getRacaCor(), 
 																					   dataInternacao, registro.getDataInternacao(), 		
 																					   dataEncerramento, registro.getDataEncerramento(), 		                                                                   		                                                                
-					                                                                   paciente.getEvolucaoCaso(), registro.getEvolucaoCaso());
+					                                                                   paciente.getEvolucaoCaso(), registro.getEvolucaoCaso(),
+					                                                                   dataNotificacao, paciente.getResultadoTeste());
 			registrosModificados.add(registroModificado);
 		}
 		
@@ -78,11 +81,26 @@ public class CriarCSVRedomeModificado {
 				                                                 "municipio", "campo1", "sexo", "racaCor", 
 				                                                 "dataInternacao", "dataInternacaoRedome", 
 				                                                 "dataEncerramento", "dataEncerramentoRedome", 
-				                                                 "evolucaoCaso", "evolucaoCasoRedome"));
+				                                                 "evolucaoCaso", "evolucaoCasoRedome",
+				                                                 "dataNotificacao", "resultadoTeste"));
 		
 		SivepRedomeModificadoCSVHandler.criarCSV("./arquivos/csv/SIVEP_REDOME(Modificado).csv", registrosModificados);
 	}
 	
+	
+	private static Integer calcularIdade(Date dataNotificacao, Date dataNascimento) throws ParseException {
+		Calendar cal = Calendar.getInstance();
+		
+		cal.setTime(dataNotificacao);
+		int anoDataNotificacao = cal.get(Calendar.YEAR);
+		
+		cal.setTime(dataNascimento);
+		int anoDataNascimento = cal.get(Calendar.YEAR);
+		
+		return anoDataNotificacao - anoDataNascimento;
+	}
+	
+	/*
 	private static Integer calcularIdade(SivepRedomeCSV registro) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -109,6 +127,7 @@ public class CriarCSVRedomeModificado {
 			return year2 - year1;
 		}
 	}
+	*/
 
 	private static List<Paciente> obterPacientes(List<SivepRedomeCSV> registros) throws ParseException {
 		String jpql = "\n from Paciente p " 

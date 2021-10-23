@@ -16,6 +16,8 @@ public class SivepRedomeModificadoCSV {
 	private String dataEncerramentoRedome;
 	private String evolucaoCaso;
 	private String evolucaoCasoRedome;
+	private String dataNotificacao;
+	private String resultadoTeste;
 	
 	public SivepRedomeModificadoCSV() {
 		
@@ -23,7 +25,8 @@ public class SivepRedomeModificadoCSV {
 
 	public SivepRedomeModificadoCSV(String identificacao, String nomeCompleto, String dataNascimento, String idade, String municipio,
 			String campo1, String sexo, String racaCor, String dataInternacao, String dataInternacaoRedome,
-			String dataEncerramento, String dataEncerramentoRedome, String evolucaoCaso, String evolucaoCasoRedome) {
+			String dataEncerramento, String dataEncerramentoRedome, String evolucaoCaso, String evolucaoCasoRedome,
+			String dataNotificacao, String resultadoTeste) {
 		this.identificacao = identificacao;
 		this.nomeCompleto = nomeCompleto;
 		this.dataNascimento = dataNascimento;
@@ -38,6 +41,8 @@ public class SivepRedomeModificadoCSV {
 		this.dataEncerramentoRedome = dataEncerramentoRedome;
 		this.evolucaoCaso = evolucaoCaso;
 		this.evolucaoCasoRedome = evolucaoCasoRedome;
+		this.dataNotificacao = dataNotificacao;
+		this.resultadoTeste = resultadoTeste;
 	}
 
 	public String getIdentificacao() {
@@ -151,4 +156,21 @@ public class SivepRedomeModificadoCSV {
 	public void setEvolucaoCasoRedome(String evolucaoCasoRedome) {
 		this.evolucaoCasoRedome = evolucaoCasoRedome;
 	}
+
+	public String getDataNotificacao() {
+		return dataNotificacao;
+	}
+
+	public void setDataNotificacao(String dataNotificacao) {
+		this.dataNotificacao = dataNotificacao;
+	}
+
+	public String getResultadoTeste() {
+		return resultadoTeste;
+	}
+
+	public void setResultadoTeste(String resultadoTeste) {
+		this.resultadoTeste = resultadoTeste;
+	}
+	
 }

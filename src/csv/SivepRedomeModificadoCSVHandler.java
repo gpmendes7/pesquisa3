@@ -28,7 +28,8 @@ public class SivepRedomeModificadoCSVHandler {
 				             "municipio", "campo1", "sexo",  "racaCor", 
 				             "dataInternacao",  "dataInternacaoRedome",
 				             "dataEncerramento", "dataEncerramentoRedome",
-				             "evolucaoCaso",  "evolucaoCasoRedome"};
+				             "evolucaoCaso",  "evolucaoCasoRedome",
+				             "dataNotificacao", "resultadoTeste"};
  
 		strategy.setColumnMapping(colunas);
 	}
