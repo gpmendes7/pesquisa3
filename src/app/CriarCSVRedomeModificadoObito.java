@@ -25,8 +25,8 @@ import csv.SivepRedomeModificadoCSV;
 import csv.SivepRedomeModificadoCSVHandler;
 import modelo.Paciente;
 
-public class CriarCSVRedomeModificado {
-
+public class CriarCSVRedomeModificadoObito {
+	
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
 
@@ -58,9 +58,15 @@ public class CriarCSVRedomeModificado {
 		for (SivepRedomeCSV registro : registrosSemCopia) {		
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			
-			Paciente paciente = pacientes.stream() .filter(p ->p.getNomeCompleto().equals(registro.getNomeCompleto()) &&
+			List<Paciente> result = pacientes.stream() .filter(p ->p.getNomeCompleto().equals(registro.getNomeCompleto()) &&
 					 									   sdf.format(p.getDataNascimento()).equals(registro.getDataNascimento()))
-					 								.collect(Collectors.toList()).get(0);
+					 								.collect(Collectors.toList());
+			
+			if(result.isEmpty()) {
+				continue;
+			}
+			
+			Paciente paciente = result.get(0);
 			
 			String dataEncerramento = paciente.getDataEncerramento() != null ? sdf.format(paciente.getDataEncerramento()) : null;
 			String dataInternacao = paciente.getDataInternacao() != null ? sdf.format(paciente.getDataInternacao()) : null;
@@ -84,7 +90,7 @@ public class CriarCSVRedomeModificado {
 				                                                 "evolucaoCaso", "evolucaoCasoRedome",
 				                                                 "dataNotificacao", "resultadoTeste"));
 		
-		SivepRedomeModificadoCSVHandler.criarCSV("./arquivos/csv/SIVEP_REDOME(Modificado).csv", registrosModificados);
+		SivepRedomeModificadoCSVHandler.criarCSV("./arquivos/csv/SIVEP_REDOME(Modificado-OBITO).csv", registrosModificados);
 	}
 	
 	
@@ -102,7 +108,7 @@ public class CriarCSVRedomeModificado {
 
 	private static List<Paciente> obterPacientes(List<SivepRedomeCSV> registros) throws ParseException {
 		String jpql = "\n from Paciente p " 
-	                + "\n where ";
+	                + "\n where p.evolucaoCaso = 'OBITO' and (";
 
 		for (SivepRedomeCSV registro : registros) {
 			SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
@@ -117,6 +123,8 @@ public class CriarCSVRedomeModificado {
 				jpql += " or ";
 			}
 		}
+		
+		jpql += "\n )";
 
 		TypedQuery<Paciente> query = em.createQuery(jpql, Paciente.class);
 		
