@@ -20,7 +20,6 @@ public class SivepRedomeCSV {
 	public SivepRedomeCSV(String identificacao, String nomeCompleto, String dataNascimento, String municipio,
 			String campo1, String sexo, String racaCor, String dataInternacao, String dataEncerramento,
 			String evolucaoCaso) {
-		super();
 		this.identificacao = identificacao;
 		this.nomeCompleto = nomeCompleto;
 		this.dataNascimento = dataNascimento;
