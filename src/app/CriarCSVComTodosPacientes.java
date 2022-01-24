@@ -24,7 +24,7 @@ public class CriarCSVComTodosPacientes {
 	private static EntityManager em;
 	
 	public static void main(String[] args) throws ParseException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
-		emf = Persistence.createEntityManagerFactory("sivep2");
+		emf = Persistence.createEntityManagerFactory("pesquisa3");
 		em = emf.createEntityManager();
 		
 		List<Paciente> pacientes = obterPacientes();

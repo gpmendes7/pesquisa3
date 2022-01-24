@@ -33,7 +33,7 @@ public class CriarCSVRedomeModificadoUti {
 	public static void main(String[] args) throws IOException, ParseException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
 		List<SivepRedomeCSV> registros = SivepRedomeCSVHandler.carregarCSV("./arquivos/csv/SIVEP_REDOME(SemCopias).csv");
 
-		emf = Persistence.createEntityManagerFactory("sivep2");
+		emf = Persistence.createEntityManagerFactory("pesquisa3");
 		em = emf.createEntityManager();
 		
 		List<Paciente> pacientes = obterPacientes(registros);
